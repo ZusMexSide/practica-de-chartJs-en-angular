@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Ionic Blank
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list-header color="light">
+    vertical bar chart
+  </ion-list-header>
+  <button (click)='mostrar()'>Mostrar</button>
+  <ion-card class="welcome-card">
+    <ion-card-header class="welcome-card">
+      <ion-card-subtitle>
+        Number of views per season for
+      </ion-card-subtitle>
+      <ion-card-title>
+        The seven deadly sinse
+      </ion-card-title>
+      <ion-item>
+        <ion-label>Filter</ion-label>
+        <ion-datetime #f (ionChange)="onChange($event)" displayFormat="M-YYYY" ></ion-datetime>
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #barChart></canvas>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
