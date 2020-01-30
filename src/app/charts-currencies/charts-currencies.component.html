@@ -5,12 +5,7 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-  <ion-list-header color="light">
-    vertical bar chart
-  </ion-list-header>
-  <button (click)='mostrar()'>Mostrar</button>
   <ion-card class="welcome-card">
     <ion-card-header class="welcome-card">
       <ion-card-subtitle>
@@ -19,8 +14,22 @@
       <ion-card-title>
         The seven deadly sinse
       </ion-card-title>
+      <ion-list>
+        <ion-item>
+          <ion-label>Filter by date range</ion-label>
+        </ion-item> 
       <ion-item>
-        <ion-label>Filter</ion-label>
+        <ion-label>From:</ion-label>
+          <ion-datetime #uno displayFormat="DD/MMM/YYYY"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>To:</ion-label>
+        <ion-datetime #dos displayFormat="DD/MMM/YYYY"></ion-datetime>
+      </ion-item>
+      <ion-button (click)="filterRange(uno.value, dos.value)">cargar</ion-button>
+      </ion-list>
+      <ion-item>
+        <ion-label>Filter for year and month</ion-label>
         <ion-datetime #f (ionChange)="onChange($event)" displayFormat="M-YYYY" ></ion-datetime>
       </ion-item>
     </ion-card-header>

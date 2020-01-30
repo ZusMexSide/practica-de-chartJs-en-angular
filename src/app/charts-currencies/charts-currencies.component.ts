@@ -14,6 +14,7 @@ export class ChartsCurrenciesComponent implements OnInit {
   objectDom: any;
   padre: any;
   arrayDates: any[];
+  numeros: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   constructor(private dataSource: FinancialModelingPrepService) {
     this.history = [];
   }
@@ -23,6 +24,9 @@ export class ChartsCurrenciesComponent implements OnInit {
 
   onChange(event) {
     this.loadChart(event.detail.value.substring(0, 7));
+  }
+  filterRange(date1, date2) {
+    this.loadChart(date1.substring(0, 10), date2.substring(0, 10));
   }
   async getData() {
    await this.dataSource.getHistorical().then((res: any) => {
@@ -41,19 +45,33 @@ export class ChartsCurrenciesComponent implements OnInit {
     return colors;
   }
 
-  async loadChart(date = '') {
+  async loadChart(date = '', date2?) {
     var years = [];
     var closes = [];
+    var filterDates = [];
     if (this.history[0] == null) {
       await this.getData();
-      console.log('entro al if');
+      console.log('entro al if para cargar datos');
     }
-    this.history.forEach((object) => {
-      if (object.date.includes(date)) {
+    if (date && date2) {
+      console.log('funcion de las dos fechas');
+      filterDates = this.history.filter((dates) => {
+        return dates.date >= date && dates.date <= date2;
+      });
+      filterDates.forEach((object) => {
         years.push(object.date);
         closes.push(object.close);
-      }
+      });
+    }
+    if (!date2) {
+      console.log('entro a solo una fecha');
+      this.history.forEach((object) => {
+        if (object.date.includes(date)) {
+          years.push(object.date);
+          closes.push(object.close);
+        }
     });
+  }
     if (this.bars) {
       this.bars.destroy();
     }
